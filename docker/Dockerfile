@@ -25,25 +25,32 @@ RUN apt-get install -y \
     rsync \
     unzip
 
+#copy source
+COPY ./ /tmp/cesium-terrain-server/
+
 # Install Go
-ADD install-go.sh /tmp/
-RUN /tmp/install-go.sh
+ENV GOROOT_BOOTSTRAP=/usr
+#ADD docker/install-go.sh /tmp/
+#RUN /tmp/install-go.sh
+RUN /tmp/cesium-terrain-server/docker/install-go.sh
 
 # Set the Go workspace
-ENV GOPATH=/usr/local/go/_vendor:/usr/local/go GOBIN=/usr/local/bin
+#ENV GOPATH=/usr/local/go/_vendor:/usr/local/go GOBIN=/usr/local/bin
+ENV GOPATH=/usr/local GOBIN=/usr/local/bin
 
 # Install the terrain server
-ADD local/ /tmp/local/
-ADD cts-checkout.txt install-terrain-server.sh /tmp/
-RUN /tmp/install-terrain-server.sh
+#ADD local/ /tmp/local/
+#ADD cts-checkout.txt install-terrain-server.sh /tmp/
+#RUN /tmp/install-terrain-server.sh
+RUN cd /tmp/cesium-terrain-server && go mod init cesium-terrain-server && make install
 
 # Install Cesium.js
-ADD cesium-version.txt install-cesiumjs.sh /tmp/
-RUN /tmp/install-cesiumjs.sh
+#ADD docker/cesium-version.txt docker/install-cesiumjs.sh /tmp/
+RUN /tmp/cesium-terrain-server/docker/install-cesiumjs.sh
 
 # Add our filesystem updates
-ADD ./root-fs /tmp/root-fs
-RUN rsync -a /tmp/root-fs/ /
+#ADD ./root-fs /tmp/root-fs
+RUN rsync -a /tmp/cesium-terrain-server/docker/root-fs/ /
 
 # Expose the terrain server
 EXPOSE 8000
