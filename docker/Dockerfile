@@ -31,7 +31,7 @@ COPY ./ /tmp/cesium-terrain-server/
 # Install Go
 ENV GOROOT_BOOTSTRAP=/usr
 #ADD docker/install-go.sh /tmp/
-#RUN /tmp/install-go.sh
+RUN chmod 755 /tmp/cesium-terrain-server/docker/install-go.sh
 RUN /tmp/cesium-terrain-server/docker/install-go.sh
 
 # Set the Go workspace
@@ -46,6 +46,7 @@ RUN cd /tmp/cesium-terrain-server && go mod init cesium-terrain-server && make i
 
 # Install Cesium.js
 #ADD docker/cesium-version.txt docker/install-cesiumjs.sh /tmp/
+RUN chmod 755 /tmp/cesium-terrain-server/docker/install-cesiumjs.sh
 RUN /tmp/cesium-terrain-server/docker/install-cesiumjs.sh
 
 # Add our filesystem updates
