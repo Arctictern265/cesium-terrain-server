@@ -46,7 +46,7 @@ RUN cd /tmp/cesium-terrain-server && go mod init cesium-terrain-server && make i
 
 # Install Cesium.js
 #ADD docker/cesium-version.txt docker/install-cesiumjs.sh /tmp/
-RUN /tmp/cesium-terrain-server/docker/install-cesiumjs.sh
+RUN chmod 755 /tmp/cesium-terrain-server/docker/install-cesiumjs.sh && /tmp/cesium-terrain-server/docker/install-cesiumjs.sh
 
 # Add our filesystem updates
 #ADD ./root-fs /tmp/root-fs
