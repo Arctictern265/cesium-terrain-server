@@ -32,7 +32,7 @@ COPY ./ /tmp/cesium-terrain-server/
 ENV GOROOT_BOOTSTRAP=/usr
 #ADD docker/install-go.sh /tmp/
 #RUN /tmp/install-go.sh
-RUN /tmp/cesium-terrain-server/docker/install-go.sh
+RUN chmod 755 /tmp/cesium-terrain-server/docker/install-go.sh && /tmp/cesium-terrain-server/docker/install-go.sh
 
 # Set the Go workspace
 #ENV GOPATH=/usr/local/go/_vendor:/usr/local/go GOBIN=/usr/local/bin
