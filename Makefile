@@ -13,8 +13,8 @@ assets/assets.go: $(GOBINDATA) data
 $(GOBINDATA): data/smallterrain-blank.terrain
 	go get github.com/jteeuwen/go-bindata/... && touch $(GOBINDATA)
 
-data/smallterrain-blank.terrain:
-	curl --location --progress-bar --insecure https://raw.github.com/geo-data/cesium-terrain-builder/master/data/smallterrain-blank.terrain > data/smallterrain-blank.terrain
+#data/smallterrain-blank.terrain:
+#	curl --location --progress-bar --insecure https://raw.github.com/geo-data/cesium-terrain-builder/master/data/smallterrain-blank.terrain > data/smallterrain-blank.terrain
 
 docker-local: docker/local/cesium-terrain-server-$(checkout).tar.gz docker/local/Cesium-$(cesium_version).zip
 	docker build -t geodata/cesium-terrain-server:local docker
