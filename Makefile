@@ -10,7 +10,8 @@ install: $(GOFILES) assets/assets.go
 assets/assets.go: $(GOBINDATA) data
 	chmod 755 $(GOBINDATA) && $(GOBINDATA) -ignore \\.gitignore -nocompress -pkg="assets" -o assets/assets.go data
 
-$(GOBINDATA): data/smallterrain-blank.terrain
+#$(GOBINDATA): data/smallterrain-blank.terrain
+$(GOBINDATA): 
 	go get github.com/jteeuwen/go-bindata/... && touch $(GOBINDATA)
 
 #data/smallterrain-blank.terrain:
